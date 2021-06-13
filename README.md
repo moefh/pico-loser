@@ -19,11 +19,11 @@ This will create the file `game/pico-loser.uf2` inside the `build` directory you
 
 ## VGA Output
 
-The VGA output has 2 bits per color channel (which results in an image of 64 colors). I use some very simple homemade DACs built with a few resistors on a perfboard:
+The VGA output has 2 bits per color channel (which results in an image of 64 colors). I use a homemade perfboard with a few resistors:
 
 ![VGA Board](images/pico.jpg)
 
-The output pins (which can be changed in `game/main.c`) are configures as follows:
+The output pins (which can be changed in `game/main.c`) are configured as:
 
 |  Pico GPIO |  Output signal  |
 |-----------:|-----------------|
@@ -36,7 +36,9 @@ The output pins (which can be changed in `game/main.c`) are configures as follow
 |          8 | Horizontal sync |
 |          9 | Vertical sync   |
 
-A resistor ladder or some other form of DAC is needed to convert the digital color signals to analog voltages expected by the VGA monitor. I use this simple setup with 3 resistors per color:
+The vertical sync and horizontal sync pins should each be connected to the monitor cable through an appropriate resistor (I use 300 Ω).
+
+For each color component (red, green, blue), a resistor ladder or some other form of DAC is needed to convert the 2 digital pin outputs to the corresponding analog voltage expected by the VGA monitor. I use this simple setup with 3 resistors:
 
 ![Color DAC](images/dac-schematic.png)
 
