@@ -1,6 +1,6 @@
 # pico-loser
 
-This is an old game, Loser Corps, ported to the Raspberry Pi Pico board using custom code based on bitluni's ESP32Lib to output the game screen to a VGA monitor. It supports Wii nunchuk and classic controllers via I2C. There's currently no sound output.
+This is an old game, Loser Corps, ported to the Raspberry Pi Pico board using custom code to output the game screen to a VGA monitor. It supports Wii nunchuk and classic controllers via I2C. There's currently no sound output.
 
 ![Game Screen](images/screen.jpg)
 
@@ -9,13 +9,13 @@ This is an old game, Loser Corps, ported to the Raspberry Pi Pico board using cu
 The `game` directory contains a CMake project that uses the official [pico-sdk](https://github.com/raspberrypi/pico-sdk). To build using the command line, install and set up the the Pico SDK, then:
 
     git clone https://github.com/moefh/pico-loser.git
-    cd pico-loser/game
+    cd pico-loser
     mkdir build
     cd build
     cmake ..
     make
 
-This will create the file `game/pico-loser.uf2` inside the `build` directory. To run the game, start the Pico in BOOTSEL mode (plug the USB cable while holding the BOOTSEL button) and copy the file `pico-loser.uf2` to the Pico folder that appears.
+This will create the file `game/pico-loser.uf2` inside the `build` directory you created. To run the game, start the Pico in BOOTSEL mode (plug the USB cable while holding the BOOTSEL button) and copy the file `pico-loser.uf2` to the Pico folder that appears.
 
 ## VGA Output
 
