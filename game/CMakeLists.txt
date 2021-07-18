@@ -1,14 +1,18 @@
 add_executable(pico_loser
   main.c
+  core1_main.c
   game_data.c
   screen.c
+  sfx.c
   control.c
   character.c
   collision.c
+  core_msg.c
   joy_wii_i2c.c
   lib/vga_6bit.c
   lib/vga_font.c
   lib/vga_image.c
+  lib/audio.c
   lib/wii_i2c.c
 )
 
@@ -21,6 +25,7 @@ target_link_libraries(pico_loser
   pico_multicore
   hardware_pio
   hardware_dma
+  hardware_pwm
   hardware_i2c
 )
 

@@ -12,6 +12,10 @@
 #include "data/spr_loserboy.h"
 #include "data/spr_pwr2.h"
 
+// sounds
+#include "data/snd_bump.h"
+#include "data/snd_explosion.h"
+
 /**
  * ==================================================================
  * ==== READ-ONLY DATA (FLASH) ======================================
@@ -61,6 +65,13 @@ const struct GAME_CHAR_DEF game_loserboy_def = {
 const struct GAME_SHOT_DEF game_loserboy_shot_def = {
   .clip = { 10, 10, 34, 23 },
   .mirror = 1,
+};
+
+const struct GAME_SFX game_sfx[] = {
+#define ADD_SFX(name) { .samples = snd_##name, .len = sizeof(snd_##name), 0 }
+  ADD_SFX(bump),
+  ADD_SFX(explosion),
+#undef ADD_SFX
 };
 
 /**

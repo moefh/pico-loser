@@ -28,6 +28,9 @@ extern "C" {
 #define GAME_NUM_SPRITE_FIRST_REMOTE_SHOT  (GAME_NUM_SPRITE_FIRST_LOCAL_SHOT+GAME_NUM_LOCAL_SHOTS)
 #define GAME_NUM_SPRITES                   (2+GAME_NUM_SHOTS)
 
+#define GAME_NUM_SFX_BUMP                  0
+#define GAME_NUM_SFX_EXPLOSION             1
+
 enum {
   MAP_BLOCK,
   MAP_BLOCK1,
@@ -135,11 +138,18 @@ struct GAME_SHOT {
   unsigned char dir;
 };
 
+struct GAME_SFX {
+  const unsigned char *samples;
+  unsigned int len;
+  unsigned int loop_start;
+};
+
 extern const struct VGA_IMAGE game_images[];
 extern const struct VGA_FONT font6x8;
 extern const struct GAME_MAP game_map;
 extern const struct GAME_CHAR_DEF game_loserboy_def;
 extern const struct GAME_SHOT_DEF game_loserboy_shot_def;
+extern const struct GAME_SFX game_sfx[];
 
 extern struct GAME_SPRITE game_sprites[];
 extern struct GAME_DATA game_data;

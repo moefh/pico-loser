@@ -2,6 +2,8 @@
 #include "character.h"
 #include "collision.h"
 
+#include "sfx.h"
+
 #define MAX_JUMP_SPEED   0x000e0000
 #define START_JUMP_SPEED 0x000e0000
 #define FALL_SPEED       0x00010000
@@ -163,6 +165,7 @@ void char_move(struct GAME_CHAR *ch)
       ch->state = GAME_CHAR_STATE_WALK;
       ch->dy = 0;
       ch->frame = 0;
+      sfx_play_once(&game_sfx[GAME_NUM_SFX_BUMP], 4<<8);
     } else {           /* Hit the ceiling */
       ch->dy = 0;
       ch->state = GAME_CHAR_STATE_JUMP_END;
