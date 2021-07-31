@@ -3,7 +3,7 @@
 This is an old game, Loser Corps, ported to the Raspberry Pi Pico. It features:
 
 - VGA output with 64 colors at 320x240
-- Sound output using 22050Hz/mono/8 bits (mixing up to 4 sounds plus mod player) with a MOD simple player
+- Sound output using 22050Hz/mono/8 bits (mixing up to 4 sounds plus mod player) with a simple MOD player
 - Wii nunchuk and Wii classic controller support via I2C
 
 ![Game Screen](images/screen.jpg)
