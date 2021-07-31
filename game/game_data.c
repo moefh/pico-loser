@@ -16,6 +16,9 @@
 #include "data/snd_bump.h"
 #include "data/snd_explosion.h"
 
+// music
+#include "data/the_softliner.h"
+
 /**
  * ==================================================================
  * ==== READ-ONLY DATA (FLASH) ======================================
@@ -73,6 +76,8 @@ const struct GAME_SFX game_sfx[] = {
   ADD_SFX(explosion),
 #undef ADD_SFX
 };
+
+const struct MOD_DATA *game_music = &mod_the_softliner;
 
 /**
  * ==================================================================

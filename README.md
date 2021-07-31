@@ -3,7 +3,7 @@
 This is an old game, Loser Corps, ported to the Raspberry Pi Pico. It features:
 
 - VGA output with 64 colors at 320x240
-- Sound output using 22050Hz/mono/8 bits (mixing up to 4 sounds)
+- Sound output using 22050Hz/mono/8 bits (mixing up to 4 sounds plus mod player) with a MOD simple player
 - Wii nunchuk and Wii classic controller support via I2C
 
 ![Game Screen](images/screen.jpg)
@@ -91,3 +91,15 @@ You can use breakout board [like this one from
 Adafruit](https://www.adafruit.com/product/4836), or (if you're OK
 with destroying you controller's plug) follow [this
 tutorial](https://create.arduino.cc/projecthub/infusion/using-a-wii-nunchuk-with-arduino-597254).
+
+
+## License
+
+The source code and images are released under GPL 2.0
+
+Includes the song
+"[The Soft-liner](https://modarchive.org/index.php?request=view_by_moduleid&query=61156)"
+by Zilly Mike, licensed under [CC BY
+3.0](https://creativecommons.org/licenses/by/3.0/).  No changes were
+made other than the conversion to a header file for inclusion in the
+code.

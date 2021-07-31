@@ -13,6 +13,8 @@ add_executable(pico_loser
   lib/vga_font.c
   lib/vga_image.c
   lib/audio.c
+  lib/audio_mixer.c
+  lib/mod_play.c
   lib/wii_i2c.c
 )
 

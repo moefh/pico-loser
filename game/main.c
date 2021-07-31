@@ -8,6 +8,7 @@
 #include "joystick.h"
 #include "joy_wii_i2c.h"
 
+#include "game_data.h"
 #include "screen.h"
 #include "control.h"
 #include "sfx.h"
@@ -61,13 +62,14 @@ int main(void)
   //sleep_ms(5000); printf("Starting...\n");
 
   joy_wii_i2c_init(&joy, JOY_SDA, JOY_SCL);
-  sfx_init(AUDIO_OUT);
+  sfx_init(AUDIO_OUT, 22050);
 
   if (screen_init(VGA_PIN_BASE) < 0) {
     return 1;
   }
 
   control_init(&joy);
+  sfx_music_start(game_music, 0x100, true);
   while (true) {
     blink_led();
     joy_wii_i2c_update(&joy);

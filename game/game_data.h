@@ -3,6 +3,7 @@
 
 #include "lib/vga_font.h"
 #include "lib/vga_image.h"
+#include "lib/mod_data.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -150,6 +151,7 @@ extern const struct GAME_MAP game_map;
 extern const struct GAME_CHAR_DEF game_loserboy_def;
 extern const struct GAME_SHOT_DEF game_loserboy_shot_def;
 extern const struct GAME_SFX game_sfx[];
+extern const struct MOD_DATA *game_music;
 
 extern struct GAME_SPRITE game_sprites[];
 extern struct GAME_DATA game_data;
