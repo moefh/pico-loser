@@ -15,12 +15,16 @@
 
 #define TILE_WIDTH  64
 #define TILE_HEIGHT 64
+#define NUM_TILES_CACHE 5
 
 static int screen_x = 0;
 static int screen_y = 0;
 
-static unsigned int tile_cache[2*TILE_WIDTH*TILE_HEIGHT/4];
-static struct VGA_IMAGE tile_cache_image = { 64, 64, 64/4, tile_cache };
+#if NUM_TILES_CACHE > 0
+// place the first few tiles in RAM for faster drawing
+static unsigned int tile_cache[NUM_TILES_CACHE*TILE_WIDTH*TILE_HEIGHT/sizeof(unsigned int)];
+static struct VGA_IMAGE tile_cache_image = { 64, 64, 64/sizeof(unsigned int), tile_cache };
+#endif
 
 int screen_init(int vga_pin_base)
 {
@@ -35,7 +39,9 @@ int screen_init(int vga_pin_base)
   game_data.camera_x = 0;
   game_data.camera_y = 0;
 
-  memcpy(tile_cache, game_map.tileset->data, 2*TILE_WIDTH*TILE_HEIGHT);
+#if NUM_TILES_CACHE > 0
+  memcpy(tile_cache, game_map.tileset->data, NUM_TILES_CACHE*TILE_WIDTH*TILE_HEIGHT);
+#endif
 
   return 0;
 }
@@ -80,9 +86,11 @@ static void render_game_frame(void)
     for (int tile_x = tile_x_first; tile_x <= tile_x_last; tile_x++) {
       int tile_num = tiles[tile_x].back;
       if (tile_num != 0xffff) {
-        if (tile_num < 2)
+#if NUM_TILES_CACHE > 0
+        if (tile_num < NUM_TILES_CACHE)
           vga_image_draw_frame(&tile_cache_image, tile_num, x_pos, y_pos, false);
         else
+#endif
           vga_image_draw_frame(game_map.tileset, tile_num, x_pos, y_pos, false);
       }
       x_pos += TILE_WIDTH;
@@ -109,9 +117,11 @@ static void render_game_frame(void)
     for (int tile_x = tile_x_first; tile_x <= tile_x_last; tile_x++) {
       int tile_num = tiles[tile_x].fore;
       if (tile_num != 0xffff) {
-        if (tile_num < 2)
+#if NUM_TILES_CACHE > 0
+        if (tile_num < NUM_TILES_CACHE)
           vga_image_draw_frame(&tile_cache_image, tile_num, x_pos, y_pos, true);
         else
+#endif
           vga_image_draw_frame(game_map.tileset, tile_num, x_pos, y_pos, true);
       }
       x_pos += TILE_WIDTH;
