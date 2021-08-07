@@ -58,9 +58,16 @@ the monitor cable through an appropriate resistor (I use 300 Ω).
 For each color component (red, green, blue), a resistor ladder or some
 other form of DAC is needed to convert the 2 digital pin outputs to
 the corresponding analog voltage expected by the VGA monitor. I use
-this simple setup with 3 resistors:
+this simple setup with 2 resistors:
 
 ![Color DAC schematic](images/dac-schematic.png)
+
+It doesn't match the VGA monitor impedance (the output impedance is
+1/(1/470+1/1000)=320Ω, where the monitor input impedance is 75Ω) but
+the image doesn't look bad, even with my old CRT monitor.  My old
+attempt at matching the impedance with 3 resistors (270Ω for high,
+480Ω for low, and a 130Ω to ground) exceeds the maximum output current
+for the Pico by a bit (when adding all pins), so it's not recommended.
 
 
 ## Sound Output
