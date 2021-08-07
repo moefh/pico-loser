@@ -11,12 +11,13 @@
 #include "game_data.h"
 #include "screen.h"
 #include "control.h"
-#include "sfx.h"
 
 #define VGA_PIN_BASE  2
 #define JOY_SDA       12
 #define JOY_SCL       13
 #define AUDIO_OUT     16
+
+#define SAMPLE_FREQUENCY 22050
 
 void core1_main(void);
 
@@ -62,14 +63,14 @@ int main(void)
   //sleep_ms(5000); printf("Starting...\n");
 
   joy_wii_i2c_init(&joy, JOY_SDA, JOY_SCL);
-  sfx_init(AUDIO_OUT, 22050);
+  msg_audio_init(AUDIO_OUT, SAMPLE_FREQUENCY);
 
   if (screen_init(VGA_PIN_BASE) < 0) {
     return 1;
   }
 
   control_init(&joy);
-  sfx_music_start(game_music, 0x100, true);
+  msg_music_start(game_music, SAMPLE_FREQUENCY, 0x100, true);
   while (true) {
     blink_led();
     joy_wii_i2c_update(&joy);

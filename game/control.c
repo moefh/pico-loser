@@ -5,7 +5,7 @@
 #include "game_data.h"
 #include "character.h"
 #include "collision.h"
-#include "sfx.h"
+#include "core_msg.h"
 
 #define CAMERA_TETHER_X  40
 #define CAMERA_TETHER_Y  60
@@ -24,7 +24,7 @@ static void move_shots(void)
       // collision: destroy shot
       shot->def = NULL;
       shot->spr->img = NULL;
-      sfx_play_once(&game_sfx[GAME_NUM_SFX_EXPLOSION], 1<<8);
+      msg_audio_play_once(&game_sfx[GAME_NUM_SFX_EXPLOSION], 1<<8);
       continue;
     }
     shot->x += mdx;

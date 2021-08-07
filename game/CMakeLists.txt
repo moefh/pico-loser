@@ -3,7 +3,6 @@ add_executable(pico_loser
   core1_main.c
   game_data.c
   screen.c
-  sfx.c
   control.c
   character.c
   collision.c

@@ -21,7 +21,7 @@ static void process_message(union CORE_MSG *msg)
   case CORE_MSG_TYPE_AUDIO_INIT:
     {
       struct CORE_MSG_AUDIO_INIT *m = &msg->audio_init;
-      audio_init(m->audio_pin, m->sample_freq);
+      audio_init(m->sound_pin, m->sample_freq);
       audio_mixer_init();
     }
     return;
@@ -49,7 +49,7 @@ static void process_message(union CORE_MSG *msg)
   case CORE_MSG_TYPE_MUSIC_START:
     {
       struct CORE_MSG_MUSIC_START *m = &msg->music_start;
-      mod_play_start(m->music, m->frequency, m->loop);
+      mod_play_start(m->music, m->sample_freq, m->loop);
       audio_mixer_set_callback(mod_play_callback, m->volume);
     }
     break;
