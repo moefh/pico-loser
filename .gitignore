@@ -1,3 +1,9 @@
+# Converter executables
+converters/image/conv_bmp
+converters/image/conv_font
+converters/image/conv_spr
+converters/sound/conv_raw
+
 # Build directory
 build/
 
