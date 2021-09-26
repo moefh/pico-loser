@@ -21,8 +21,8 @@ static void create_new_shot(struct GAME_CHAR *ch)
     struct GAME_SHOT *shot = &game_local_shots[i];
     if (shot->def) continue;
     shot->def = &game_loserboy_shot_def;
-    shot->spr = &game_sprites[i+GAME_NUM_SPRITE_FIRST_LOCAL_SHOT];
-    shot->spr->img = &game_images[GAME_NUM_IMAGE_SHOT];
+    shot->spr = &game_sprites[i+GAME_SPRITE_FIRST_LOCAL_SHOT];
+    shot->spr->img = &game_images[GAME_IMAGE_SHOT];
     shot->y = ch->y + 7;
     if (ch->dir == GAME_DIR_LEFT) {
       shot->x = ch->x - 2*shot->spr->img->width/3;
@@ -114,8 +114,8 @@ static void update_sprite(struct GAME_CHAR *ch)
   default:                       frame_base = 0; break;
   }
   ch->spr->frame = frame_base + ((ch->dir==GAME_DIR_LEFT) ? ch->def->mirror : 0) + ((ch->shooting_pose>0) ? ch->def->shoot_frame : 0);
-  ch->spr->x = ch->x + ((ch->dir == GAME_DIR_RIGHT) ? -ch->def->clip.x : ch->def->clip.x + ch->def->clip.width - ch->spr->img->width - 1);
-  ch->spr->y = ch->y - ch->def->clip.y;
+  ch->spr->x = ch->x + 1 + ((ch->dir == GAME_DIR_RIGHT) ? -ch->def->clip.x : ch->def->clip.x + ch->def->clip.width - ch->spr->img->width - 1);
+  ch->spr->y = ch->y + 1 - ch->def->clip.y;
 }
 
 static void decrease_horizontal_speed(struct GAME_CHAR *ch, int amount)
@@ -164,7 +164,7 @@ void char_move(struct GAME_CHAR *ch)
       ch->state = GAME_CHAR_STATE_WALK;
       ch->dy = 0;
       ch->frame = 0;
-      msg_audio_play_once(&game_sfx[GAME_NUM_SFX_BUMP], 4<<8);
+      msg_audio_play_once(&game_sfx[GAME_SFX_BUMP], 4<<8);
     } else {           /* Hit the ceiling */
       ch->dy = 0;
       ch->state = GAME_CHAR_STATE_JUMP_END;

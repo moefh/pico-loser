@@ -4,11 +4,6 @@
 #include "game_data.h"
 #include "joystick.h"
 
-#define GAME_CHAR_STATE_STAND       0
-#define GAME_CHAR_STATE_WALK        1
-#define GAME_CHAR_STATE_JUMP_START  2
-#define GAME_CHAR_STATE_JUMP_END    3
-
 #ifdef __cplusplus
 extern "C" {
 #endif

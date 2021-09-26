@@ -5,6 +5,7 @@ add_executable(pico_loser
   screen.c
   control.c
   character.c
+  enemy_shadow.c
   collision.c
   core_msg.c
   joy_wii_i2c.c

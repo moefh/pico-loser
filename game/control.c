@@ -4,6 +4,7 @@
 #include "control.h"
 #include "game_data.h"
 #include "character.h"
+#include "enemy_shadow.h"
 #include "collision.h"
 #include "core_msg.h"
 
@@ -24,7 +25,7 @@ static void move_shots(void)
       // collision: destroy shot
       shot->def = NULL;
       shot->spr->img = NULL;
-      msg_audio_play_once(&game_sfx[GAME_NUM_SFX_EXPLOSION], 1<<8);
+      msg_audio_play_once(&game_sfx[GAME_SFX_EXPLOSION], 1<<8);
       continue;
     }
     shot->x += mdx;
@@ -50,6 +51,7 @@ void control_update(struct JOYSTICK *joy)
 {
   char_control(&game_local_player, joy);
   char_move(&game_local_player);
+  enemy_shadow_move(&game_enemy_shadow);
   move_shots();
   camera_follow_character(&game_local_player);
   
@@ -59,4 +61,5 @@ void control_update(struct JOYSTICK *joy)
 void control_init(void)
 {
   char_init(&game_local_player, &game_loserboy_def, &game_sprites[GAME_SPRITE_LOCAL_PLAYER], 64, 64, GAME_DIR_RIGHT);
+  enemy_shadow_init(&game_enemy_shadow, &game_sprites[GAME_SPRITE_SHADOW_ENEMY], 3460, 152, GAME_DIR_LEFT);
 }

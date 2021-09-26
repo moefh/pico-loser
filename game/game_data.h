@@ -12,25 +12,35 @@ extern "C" {
 #define TILE_WIDTH  64
 #define TILE_HEIGHT 64
 
-#define GAME_DIR_LEFT  0
-#define GAME_DIR_RIGHT 1
-
-#define GAME_NUM_IMAGE_TILES               0   // image index for map tiles
-#define GAME_NUM_IMAGE_LOSERBOY            1   // image index for loserboy
-#define GAME_NUM_IMAGE_SHOT                2   // image index for shot
+#define GAME_IMAGE_TILES                   0   // image index for map tiles
+#define GAME_IMAGE_LOSERBOY                1   // image index for loserboy
+#define GAME_IMAGE_SHADOW                  2   // image index for shadow enemy
+#define GAME_IMAGE_SHOT                    3   // image index for shot
 
 #define GAME_NUM_LOCAL_SHOTS               7
 #define GAME_NUM_REMOTE_SHOTS              7
-#define GAME_NUM_SHOTS                     (GAME_NUM_LOCAL_SHOTS+GAME_NUM_REMOTE_SHOTS)
 
 #define GAME_SPRITE_LOCAL_PLAYER           0   // sprite index for local player character
 #define GAME_SPRITE_REMOTE_PLAYER          1   // sprite index for remote player character
-#define GAME_NUM_SPRITE_FIRST_LOCAL_SHOT   2   // sprite index for first local shot
-#define GAME_NUM_SPRITE_FIRST_REMOTE_SHOT  (GAME_NUM_SPRITE_FIRST_LOCAL_SHOT+GAME_NUM_LOCAL_SHOTS)
-#define GAME_NUM_SPRITES                   (2+GAME_NUM_SHOTS)
+#define GAME_SPRITE_SHADOW_ENEMY           2   // sprite index for shadow enemy character
+#define GAME_SPRITE_FIRST_LOCAL_SHOT       3   // sprite index for first local shot
+#define GAME_SPRITE_FIRST_REMOTE_SHOT      (GAME_SPRITE_FIRST_LOCAL_SHOT+GAME_NUM_LOCAL_SHOTS)
+#define GAME_NUM_SPRITES                   (GAME_SPRITE_FIRST_REMOTE_SHOT+GAME_NUM_REMOTE_SHOTS)
 
-#define GAME_NUM_SFX_BUMP                  0
-#define GAME_NUM_SFX_EXPLOSION             1
+#define GAME_SFX_BUMP                      0
+#define GAME_SFX_EXPLOSION                 1
+
+enum {
+  GAME_DIR_LEFT,
+  GAME_DIR_RIGHT,
+};
+
+enum {
+  GAME_CHAR_STATE_STAND,
+  GAME_CHAR_STATE_WALK,
+  GAME_CHAR_STATE_JUMP_START,
+  GAME_CHAR_STATE_JUMP_END,
+};
 
 enum {
   MAP_BLOCK,
@@ -120,6 +130,19 @@ struct GAME_CHAR {
   int y;
   int dx;
   int dy;
+  unsigned char dir;     // GAME_DIR_xxx
+  unsigned char state;   // GAME_CHAR_STATE_xxx
+  unsigned char frame;
+  unsigned char shooting_pose;
+};
+
+struct GAME_ENEMY {
+  struct GAME_SPRITE *spr;
+  int spawn_x;
+  int spawn_y;
+  int x;
+  int y;
+  int tick;
   unsigned char dir;
   unsigned char state;
   unsigned char frame;
@@ -136,7 +159,7 @@ struct GAME_SHOT {
   struct GAME_SPRITE *spr;
   unsigned short x;
   unsigned short y;
-  unsigned char dir;
+  unsigned char dir;  // GAME_DIR_xxx
 };
 
 struct GAME_SFX {
@@ -149,7 +172,9 @@ extern const struct VGA_IMAGE game_images[];
 extern const struct VGA_FONT font6x8;
 extern const struct GAME_MAP game_map;
 extern const struct GAME_CHAR_DEF game_loserboy_def;
+extern const struct GAME_CHAR_DEF game_shadow_def;
 extern const struct GAME_SHOT_DEF game_loserboy_shot_def;
+extern const struct GAME_SHOT_DEF game_shadow_shot_def;
 extern const struct GAME_SFX game_sfx[];
 extern const struct MOD_DATA *game_music;
 
@@ -157,6 +182,7 @@ extern struct GAME_SPRITE game_sprites[];
 extern struct GAME_DATA game_data;
 extern struct GAME_CHAR game_local_player;
 extern struct GAME_CHAR game_remote_player;
+extern struct GAME_ENEMY game_enemy_shadow;
 extern struct GAME_SHOT game_local_shots[];
 extern struct GAME_SHOT game_remote_shots[];
 
