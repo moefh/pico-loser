@@ -1,4 +1,4 @@
-/* File generated automatically from spr/pwr2.spr */
+/* File generated automatically from pwr2.spr */
 
 #define img_pwr2_width   54
 #define img_pwr2_height  43

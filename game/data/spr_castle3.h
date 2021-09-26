@@ -1,4 +1,4 @@
-/* File generated automatically from spr/castle3.spr */
+/* File generated automatically from castle3.spr */
 
 #define img_castle3_width   64
 #define img_castle3_height  64

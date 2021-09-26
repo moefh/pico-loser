@@ -1,3 +1,5 @@
+/* File generated automatically from font6x8.bmp */
+
 #define font6x8_width 6
 #define font6x8_height 8
 #define font6x8_first_char 32

@@ -1,3 +1,5 @@
+/* File generated automatically from explosion.raw */
+
 static const unsigned char snd_explosion[] = {
   127, 126, 126, 127, 127, 126, 126, 127, 127, 126, 126, 127, 127, 126, 126, 127,
   127, 127, 126, 127, 127, 127, 126, 126, 127, 127, 126, 126, 127, 127, 127, 126,

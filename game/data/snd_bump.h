@@ -1,3 +1,5 @@
+/* File generated automatically from bump.raw */
+
 static const unsigned char snd_bump[] = {
   127, 126, 127, 127, 127, 126, 127, 127, 126, 127, 126, 126, 126, 127, 127, 128,
   128, 127, 127, 127, 127, 128, 128, 127, 126, 126, 126, 127, 127, 128, 128, 127,

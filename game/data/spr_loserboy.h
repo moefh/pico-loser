@@ -1,4 +1,4 @@
-/* File generated automatically from spr/loserboy.spr */
+/* File generated automatically from loserboy.spr */
 
 #define img_loserboy_width   51
 #define img_loserboy_height  40
