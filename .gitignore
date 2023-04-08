@@ -7,6 +7,9 @@ converters/sound/conv_raw
 # Build directory
 build/
 
+# VSCode
+.vscode
+
 # Prerequisites
 *.d
 
