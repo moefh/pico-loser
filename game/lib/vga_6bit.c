@@ -39,11 +39,52 @@
 #include "vga_6bit.h"
 #include "vga_6bit.pio.h"
 
-//                                         clock     hf  hp  hb  hpix    vf  vb  vb  vpix  vdiv  (h,v)pol
-const struct VGA_MODE vga_mode_320x240 = { 12587500,  8, 48, 24, 320,    10,  2, 33, 480,     2,  1,1  };
-const struct VGA_MODE vga_mode_320x200 = { 12587500,  8, 48, 24, 320,    50,  2, 73, 400,     2,  1,1  };
-//const struct VGA_MODE vga_mode_320x200={ 12587500,  8, 48, 24, 320,    12,  2, 35, 400,     2,  1,0  };
-//const struct VGA_MODE vga_mode_320x175={ 12587500,  8, 48, 24, 320,    37,  2, 60, 350,     2,  0,1  };
+/**
+ * VGA mode definitions
+ *
+ * - clock:  pixel clock in Hz
+ * - hf:     horizontal front porch length, in pixels
+ * - hp:     horizontal sync pulse length, in pixels
+ * - hb:     horizontal back porch length, in pixels
+ * - hpix:   horizontal number of visible pixels
+ * - vf:     vertical front porch length, in lines
+ * - vp:     vertical sync pulse length, in lines
+ * - vb:     vertical back porch length, in lines
+ * - vpix:   vertical number of visible lines (before division by vdiv)
+ * - vdiv:   vertical divisor (each framebuffer line will be repeated this many times)
+ * - h pol:  horizontal sync polarity (use 1 for negative sync polarity)
+ * - v pol:  vertical sync polarity (use 1 for negative sync polarity)
+ *
+ * Note 1: To divide the horizontal resolution from a standard mode, simply
+ * divide the pixel <clock> and all horizontal pixel values <hf, hp, hb, hpix>
+ * given in the standard by the desired horizontal divisor. For example, to
+ * transform the standard mode 640x480 mode to 320x240, we divide the pixel
+ * <clock> and the <h*> values by 2. The vertical values must be kept unchanged
+ * because the lines will have the same timings as the original. The vertical
+ * resolution division is done by repeating every line <vdiv> times.
+ *
+ * Note 2: VGA mode timings can be found all over the Internet.  Some great
+ * resources are:
+ *  - http://tinyvga.com/vga-timing
+ *  - https://projectf.io/posts/video-timings-vga-720p-1080p/
+ *
+ * Note 3: When adding new video modes, as a sanity check verify that:
+ *  - the horizontal frequency is: clock/(hf+hp+hb+hpix)
+ *  - the vertical frequency is: clock/(hf+hp+hb+hpix)/(vf+vp+vb+vpix)
+ *
+ * Note 4: When selecting a video mode with different polarities than the
+ * default (320x240), you must rebuild the image files with the new polarity
+ * bits. See the image conversion script (converters/image/conv_all.sh) for
+ * more information.
+ */
+
+//                                          clock      hf  hp  hb  hpix    vf  vp  vb  vpix  vdiv  (h,v)pol
+const struct VGA_MODE vga_mode_320x240  = { 12587500,   8, 48, 24, 320,    10,  2, 33, 480,     2,  1,1  };  //  640x480@60 / 2
+const struct VGA_MODE vga_mode_320x200  = { 12587500,   8, 48, 24, 320,    50,  2, 73, 400,     2,  1,1  };  //  640x480@60 / 2 (black horizontal stripes)
+const struct VGA_MODE vga_mode_360x200  = { 17750000,  18, 36, 54, 360,     1,  3, 42, 400,     2,  1,0  };  //  720x400@85 / 2
+const struct VGA_MODE vga_mode_320x180  = { 18585000,  27, 10, 55, 320,     5,  5, 20, 720,     4,  0,0  };  // 1280x720@60 / 4
+const struct VGA_MODE vga_mode_320x200b = { 20865000,  16, 34, 50, 320,     1,  3, 24, 800,     4,  1,0  };  // 1280x800@60 / 4
+const struct VGA_MODE vga_mode_360x225  = { 26617500,  20, 38, 58, 360,     1,  3, 28, 900,     4,  1,0  };  // 1440x900@60 / 4
 
 static const struct VGA_MODE *vga_mode = NULL;
 

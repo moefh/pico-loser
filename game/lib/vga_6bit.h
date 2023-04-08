@@ -4,7 +4,6 @@
 #include <stdbool.h>
 
 #define VGA_ERROR_ALLOC     (-1)
-#define VGA_ERROR_MULTICORE (-2)
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,10 +33,6 @@ struct VGA_SCREEN {
   unsigned char sync_bits;
   unsigned int **framebuffer;
 };
-  
-#if VGA_ENABLE_MULTICORE
-extern void (*volatile vga_core1_func)(void);
-#endif
 
 int vga_init(const struct VGA_MODE *mode, unsigned int pin_out_base);
 void vga_clear_screen(unsigned char color);
@@ -47,7 +42,10 @@ extern struct VGA_SCREEN vga_screen;
 
 extern const struct VGA_MODE vga_mode_320x240;
 extern const struct VGA_MODE vga_mode_320x200;
-extern const struct VGA_MODE vga_mode_320x175;
+extern const struct VGA_MODE vga_mode_360x200;
+extern const struct VGA_MODE vga_mode_320x180;
+extern const struct VGA_MODE vga_mode_320x200b;
+extern const struct VGA_MODE vga_mode_360x225;
 
 #ifdef __cplusplus
 }
