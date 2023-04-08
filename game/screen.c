@@ -10,6 +10,7 @@
 
 #include "screen.h"
 #include "game_data.h"
+#include "compilation_datetime.h"
 
 #pragma GCC optimize ("-O3")
 
@@ -173,6 +174,10 @@ void screen_render(struct JOYSTICK *joy)
   if (joy->cur & JOY_BTN_D)     font_print("d ");
   if (joy->cur & JOY_BTN_E)     font_print("e ");
   if (joy->cur & JOY_BTN_F)     font_print("f ");
+
+  font_align(FONT_ALIGN_RIGHT);
+  font_move(vga_screen.width-10, vga_screen.height-30); font_printf("build");
+  font_move(vga_screen.width-10, vga_screen.height-20); font_printf("%08x", get_compilation_date());
   
   vga_swap_buffers(true);
   last_millis = cur_millis;
